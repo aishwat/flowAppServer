@@ -5,7 +5,7 @@ var definitions = require('./definitions');
 var synonyms = require('./synonyms');
 var antonyms = require('./antonyms');
 var examples = require('./examples');
-var url = "http://api.wordnik.com:80/v4/words.json"; 
+var url = "http://api.wordnik.com:80/v4/words.json";
 //words.json not word
 
 var full_dict = {
@@ -17,8 +17,8 @@ var full_dict = {
             var mock_res = {
                 status_code: null,
                 send: function(data) { //res collector
-                    for(var key in data)   
-                        value=data[key];
+                    for (var key in data)
+                        value = data[key];
                     callback(null, value);
                 },
                 status: function(code) {
@@ -28,8 +28,8 @@ var full_dict = {
                 json: function(data) { //res collector
                     // result[this.caller] = data;
                     // callback(null, data);
-                     for(var key in data)
-                        value=data[key];
+                    for (var key in data)
+                        value = data[key];
                     callback(null, value);
                 }
             };
@@ -52,28 +52,28 @@ var full_dict = {
             },
             function(err, results) {
                 console.log(results);
-                results.word=[];
+                results.word = [];
                 results.word.push(word);
                 res.send(results);
             });
 
     },
-    getWordOfDay:function(req,res){
+    getWordOfDay: function(req, res) {
         console.log('in get word of day ');
+        var dateString=new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').substring(0,10)
         request(url)
             .get('/wordOfTheDay')
             .query({
-                date:'2015-09-23', //later
-                api_key:'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+                date: dateString,
+                api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
             })
             .end(function(err, response) {
-                if (err || response.status!='200')
-                    error(res, err,response);
-                else
-                {
+                if (err || response.status != '200')
+                    error(res, err, response);
+                else {
                     console.log(response.body.word);
-                    req.params.word=response.body.word;
-                    full_dict.get(req,res);
+                    req.params.word = response.body.word;
+                    full_dict.get(req, res);
                 }
             })
     }
