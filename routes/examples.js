@@ -29,7 +29,7 @@ var examples = {
                         //console.log(result[i]['text']);
                         exmpls.push(result[i]['text']);
                     }
-                    res.send(exmpls);
+                    res.send({Examples:exmpls});
                     //check res status
                 }
             })

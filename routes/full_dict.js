@@ -17,7 +17,9 @@ var full_dict = {
             var mock_res = {
                 status_code: null,
                 send: function(data) { //res collector
-                    callback(null, data);
+                    for(var key in data)   
+                        value=data[key];
+                    callback(null, value);
                 },
                 status: function(code) {
                     status_code = code;
@@ -25,29 +27,33 @@ var full_dict = {
                 },
                 json: function(data) { //res collector
                     // result[this.caller] = data;
-                    callback(null, data);
+                    // callback(null, data);
+                     for(var key in data)
+                        value=data[key];
+                    callback(null, value);
                 }
             };
             return mock_res;
         }
 
         async.parallel({
-                definitions: function(callback) {
+                Definitions: function(callback) {
                     definitions.get(req, create_mock_res(callback));
                 },
-                synonyms: function(callback) {
+                Synonyms: function(callback) {
                     synonyms.get(req, create_mock_res(callback));
                 },
-                antonyms: function(callback) {
+                Antonyms: function(callback) {
                     antonyms.get(req, create_mock_res(callback));
                 },
-                examples: function(callback) {
+                Examples: function(callback) {
                     examples.get(req, create_mock_res(callback));
                 },
             },
             function(err, results) {
                 console.log(results);
-                results.word=word;
+                results.word=[];
+                results.word.push(word);
                 res.send(results);
             });
 

@@ -21,7 +21,7 @@ var synonyms = {
                 else
                 {
                     //console.log(response.body);
-                    res.json(response.body[0]['words']); //check res status
+                    res.json({Synonyms:response.body[0]['words']}); //check res status
                 }
             })
     }

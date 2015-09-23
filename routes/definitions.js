@@ -30,7 +30,7 @@ var definitions = {
                         //console.log(result[i]['text']);
                         defs.push(result[i]['text'])
                     }
-                    res.send(defs); //res status later
+                    res.send({Definitions:defs}); //res status later
                 }
             })
     }

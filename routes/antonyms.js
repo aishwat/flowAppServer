@@ -21,7 +21,7 @@ var antonyms = {
                 else
                 {
                     //console.log(response.body);
-                    res.json(response.body[0]['words']); //check res status
+                    res.json({Antonyms:response.body[0]['words']}); //check res status
                 }
             })
     }
