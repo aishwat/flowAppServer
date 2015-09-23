@@ -20,7 +20,18 @@ var examples = {
                 if (err || response.status != '200')
                     error(res, err, response);
                 else
-                    res.json(response.body); //check res status
+                {
+                    var result=response.body.examples;
+                    var exmpls=[];
+                    
+                    for(i in result)
+                    {
+                        //console.log(result[i]['text']);
+                        exmpls.push(result[i]['text']);
+                    }
+                    res.send(exmpls);
+                    //check res status
+                }
             })
     }
 }

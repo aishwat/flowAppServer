@@ -16,10 +16,13 @@ var antonyms = {
                 api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
             })
             .end(function(err, response) {
-                if (err || response.status != '200')
+                if (err || response.status != '200'||response.body === undefined || response.body.length == 0)
                     error(res, err, response);
                 else
-                    res.json(response.body); //check res status
+                {
+                    //console.log(response.body);
+                    res.json(response.body[0]['words']); //check res status
+                }
             })
     }
 }

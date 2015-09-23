@@ -10,17 +10,28 @@ var definitions = {
             .get('/'+word+'/definitions')
             .set({})
             .query({
-                limit: '200',
-                includeRelated: 'true',
+                limit: '10', //default to 10 //can accept from query 
+                includeRelated: 'false',
                 useCanonical: 'false',
                 includeTags:'false',
+                sourceDictionaries:'all',
                 api_key:'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
             })
             .end(function(err, response) {
                 if (err || response.status!='200')
                     error(res, err,response);
                 else
-                    res.json(response.body); //check res status
+                {
+                    //handle async later
+                    var result=response.body;
+                    var defs=[]
+                    for(i in result)
+                    {
+                        //console.log(result[i]['text']);
+                        defs.push(result[i]['text'])
+                    }
+                    res.send(defs); //res status later
+                }
             })
     }
 }
